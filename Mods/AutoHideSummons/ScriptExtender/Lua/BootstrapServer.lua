@@ -4,7 +4,11 @@ local function hideSummons(char)
     for i, summon in pairs(summons) do
         local owner = Osi.CharacterGetOwner(summon[1])
         local length = string.len(char)
-        if string.sub(char, length - 35) == owner and Osi.HasAppliedStatus(char, "SNEAKING") ~= Osi.HasAppliedStatus(summon[1], "SNEAKING") and not Ext.Entity.Get(summon[1]).BlockFollow then
+        if string.sub(char, length - 35) == owner and
+            Osi.HasAppliedStatus(char, "SNEAKING") ~= Osi.HasAppliedStatus(summon[1], "SNEAKING") and
+            not Ext.Entity.Get(summon[1]).BlockFollow and
+            Osi.IsInCombat(summon[1]) == 0
+        then
             Osi.UseSpell(summon[1], "Shout_Hide", summon[1])
         end
     end
